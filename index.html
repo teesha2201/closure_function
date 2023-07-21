@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Closure</title>
+    <style>
+        body{
+            background-color: cadetblue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Closure Handson Questions:-</h1>
+    <h3>Que:1
+        <pre>
+    function counter()
+    {
+        var counter = 0;
+
+        function IncreaseCounter() {
+            return counter += 1;
+    };
+
+        return IncreaseCounter;
+    }
+
+    var counter = counter();
+    alert(counter());
+    alert(counter());
+    alert(counter());
+    alert(counter());
+        </pre>
+    </h3>
+    <p>Ans: 
+        <h3>output:1 2 3 4 5</h3>
+        <pre>
+            Reason: 1. It is closure function because a function declare  inside another  function 
+                    and here we are calling counter() using var counter so it will invoke var counter = 0 
+
+                    2.And next line alert(counter()) here it will invoke inner function IncreaseCounter()  
+                    and check for counter variable inside same function if not found then move for search in its 
+                    parent scope so found and  change value counter = 0 by 1 and return 1 on first alert then
+
+                    repeat and change counter value 1 by 2 and continue till last alert(counter()) and return 3 then 4 .
+                    3.In next line alert(counter()) it will invoke same inner function and not found so same process 
+                    
+        </pre>
+    </p>
+    <h3>Que:2
+        <pre>
+            let count = 0;
+            (function () {
+                if (count === 0) 
+                {
+                    let count = 1;
+                    console.log(count); // What is logged?
+                }
+            console.log(count); // What is logged?
+            })();
+        </pre>
+    </h3>
+    <p>Ans:
+       <h3>output: 1 0</h3>
+       <pre>
+            Reason: This is IIFE function  or self invoking so it call function after just closing function body. Here , 
+            first function call and if condition check by taking global count value by  0  and it will true then if block code execute 
+            and print count =1 which is local inside if ,then comeout of body of if  so local count var not exist outside body of if 
+            then next console.log execute and search  for variable  count inside function and not found so go for global scope and print count's value is
+            0.
+                
+       </pre>    
+    </p>
+    <h3>Que:3
+        <pre>
+            for (var i = 0; i < 3; i++) {
+                setTimeout(function log() {
+                  console.log(i); // What is logged?
+                }, 1000);
+              }
+        </pre>
+    </h3>
+    <p>Ans:
+        <h3>output: </h3>
+        <pre>
+            Reason:
+        </pre>
+
+    </p>
+    <h3>Que:4 Write a code to calculate area of a rectangle using inner function.
+        In this case outer function should accept parameter length and inner function should accept parameter breadth.
+       
+        <p>Ans:
+            <pre>
+               
+        const area = function (length)
+        {
+            return function (breadth)
+            {
+                console.log(length*breadth);
+            }
+        }
+        const rec = area(2);
+        rec(4);
+
+        <!--Extra question to ask 
+            
+// let rec = function length(len)
+// {
+//     console.log()
+//       function breadth(bre)
+//     {
+//         return len*bre;
+//     }
+//     return breadth;
+// }
+// let call = rec(2);
+// call(3);
+// console.log(call)
+        -->
+            </pre>
+
+        </p>
+    </h3>
+    <h3>Que:5 Take a variable in outer function and create an inner function to increase the counter every time it is called
+        <p>Ans:
+        <pre>function counter(){
+                    var count=0;
+            function increase(){
+                return  count+=1 ;
+            }
+            return increase;
+            }
+            var count=counter()
+            count()
+            count()
+            count()
+            </pre>
+            Output:1 2 3
+            Reason: Here, we are calling counter() function by using count variable so first outer function call and count=0
+            intialize then  next time count() will call inner function and return value of count is count+1 i.e. 1
+            same for remaining two count() and return output is 1 2 3 
+        </p>
+    </h3>
+    <h3>Que:6  "Print Output"
+        <pre>
+            (function () {
+                alert(a);
+                var a = 12;
+            })();
+    </h3>
+    <p>Ans:
+        <h3>output: 12</h3>
+        Reason : It is IIFE function and inside this hoisting will perform , in hoisting by default behaviour is declaration will move to
+        top of the scope. It is only apply with var type of variable.
+    </p>
+    <h3>Que:7 
+        <pre>
+            var a = 10;
+            var x = (function () 
+            {
+                var a = 12;
+                return function ()
+                    {
+                        alert(a);
+                    };
+            })();
+            x();
+        </pre>
+    </h3>
+    <p>Ans:
+        <h3>Output: 12</h3>
+        Reason: it will call first call function x() then inner function call and  search in local scope to alert a if not found go in
+        parent scope and search so found there and print 12 by alert.
+       
+        
+    </p>
+    <h3>Que:8
+        <pre>
+        var globalVar = "xyz";
+
+        (function outerFunc(outerArg) {
+            var outerVar = 'a';
+
+        (function innerFunc(innerArg) {
+            var innerVar = 'b';
+    
+        console.log(
+        "outerArg = " + outerArg + "\n" +
+        "innerArg = " + innerArg + "\n" +
+        "outerVar = " + outerVar + "\n" +
+        "innerVar = " + innerVar + "\n" +
+        "globalVar = " + globalVar);
+    
+            })(456);
+        })(123);
+        </pre>
+
+    </h3>
+    <p>Ans:
+        <h3>output:
+            <pre>
+        outerArg = 123
+        innerArg =  456
+        outerVar = a 
+        innerVar =  b
+        globalVar =  xyz
+            </pre> 
+        </h3>
+        <pre><h3>
+        Reason: call outter function first and args as 123 pass and take as parameter in outerArg outerVar is a
+        and next time inner call and  pass args as 456 and take as paramete in innerArg and var innerVar is b
+        and print value in console i.e shown above.
+            </h3>
+        </pre>
+    </p>
+
+</body>
+</html>
