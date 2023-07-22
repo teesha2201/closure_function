@@ -81,9 +81,17 @@
         </pre>
     </h3>
     <p>Ans:
-        <h3>output:3 3 3 </h3>
+        <h3>output: 3 3 3</h3>
         <pre>
-            Reason:  
+            Reason: This behavior happens because of the way closures and asynchronous code work in JavaScript.
+            When the setTimeout function is called inside the loop, it creates three separate timer events that will execute 
+            the given callback function after 1000 milliseconds (1 second). However, the loop doesn't
+            wait for the timers to complete before it finishes executing.
+
+            By the time the first console.log(i) statement executes (after 1 second), 
+            the loop has already completed its iterations, and the value of i at that time is 3. 
+            Similarly, when the second and third console.log(i) statements execute, i is still 3 because it retains
+            the final value from the loop.
         </pre>
 
     </p>
